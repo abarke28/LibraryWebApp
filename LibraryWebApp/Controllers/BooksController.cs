@@ -35,14 +35,12 @@ namespace LibraryWebApp.Controllers
             return View(vm);
         }
 
-        public IActionResult Edit(int id)
+        [HttpGet("books/detail/{id}")]
+        public IActionResult Detail(int id)
         {
-            return Content(@"id=" + id);
-        }
+            var book = new Book() { Author = "x", Title = "y", Id = id };
 
-        public IActionResult Detail()
-        {
-            return Content("Author: " + "Wallace, David Foster");
+            return View(book);
         }
 
         [HttpGet("books/authors/{lastName}/{firstName}")]

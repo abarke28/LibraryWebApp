@@ -25,6 +25,34 @@ namespace LibraryWebApp.Controllers
             return View();
         }
 
+        public IActionResult Books()
+        {
+            var books = new List<Book>()
+            {
+                new Book(){Title = "Infinite Jest", Author = "Wallace, David Foster"},
+                new Book(){Title = "Godel, Escher, Bach", Author = "Hofstader, Douglas"}
+            };
+
+            var booksVm = new BooksViewModel() { Books = books };
+
+            return View("Books", booksVm);
+        }
+
+        public IActionResult Readers()
+        {
+            var readers = new List<Reader>()
+            {
+                new Reader(){Name = "Alex Barker"},
+                new Reader(){Name = "Nicole Foster"},
+                new Reader(){Name = "Euler"},
+                new Reader(){Name = "Cauchy"}
+            };
+
+            var readersVm = new ReadersViewModel() { Readers = readers };
+
+            return View("Readers", readersVm);
+        }
+
         public IActionResult Privacy()
         {
             return View();

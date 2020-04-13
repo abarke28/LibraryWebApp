@@ -1,0 +1,27 @@
+﻿@model LibraryWebApp.ViewModels.ReadersViewModel
+@{
+    ViewData["Title"] = "Readers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Readers</h1>
+
+@if (Model.Readers.Count == 0)
+{
+    <p>No readers yet!</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Reader</th>
+        </tr>
+        @foreach (var reader in Model.Readers)
+        {
+            <tr>
+                <th>@reader.Name</th>
+            </tr>
+        }
+    </table>
+
+}

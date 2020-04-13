@@ -1,0 +1,29 @@
+﻿@model LibraryWebApp.ViewModels.BooksViewModel
+@{
+    ViewData["Title"] = "Books";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Books</h1>
+
+@if (Model.Books.Count == 0)
+{
+    <p>No books yet!</p>
+}
+else
+{
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+        </tr>
+        @foreach(var book in Model.Books)
+        {
+            <tr>
+                <th>@book.Title</th>
+                <th>@book.Author</th>
+            </tr>
+        }
+    </table>
+
+}
