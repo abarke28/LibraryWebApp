@@ -20,7 +20,7 @@ else
         @foreach(var book in Model.Books)
         {
             <tr>
-                <th>@book.Title</th>
+                <th> <a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id"> @book.Title </a> </th>
                 <th>@book.Author</th>
             </tr>
         }

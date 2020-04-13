@@ -19,7 +19,7 @@ else
         @foreach (var reader in Model.Readers)
         {
             <tr>
-                <th>@reader.Name</th>
+                <th> <a asp-controller="Readers" asp-action="Detail" asp-route-id="@reader.Id"> @reader.Name </a> </th>
             </tr>
         }
     </table>

@@ -29,8 +29,8 @@ namespace LibraryWebApp.Controllers
         {
             var books = new List<Book>()
             {
-                new Book(){Title = "Infinite Jest", Author = "Wallace, David Foster"},
-                new Book(){Title = "Godel, Escher, Bach", Author = "Hofstader, Douglas"}
+                new Book(){Title = "Infinite Jest", Author = "Wallace, David Foster", Id = 1},
+                new Book(){Title = "Godel, Escher, Bach", Author = "Hofstader, Douglas", Id = 2}
             };
 
             var booksVm = new BooksViewModel() { Books = books };
@@ -42,10 +42,10 @@ namespace LibraryWebApp.Controllers
         {
             var readers = new List<Reader>()
             {
-                new Reader(){Name = "Alex Barker"},
-                new Reader(){Name = "Nicole Foster"},
-                new Reader(){Name = "Euler"},
-                new Reader(){Name = "Cauchy"}
+                new Reader(){Name = "Alex Barker", Id = 1},
+                new Reader(){Name = "Nicole Foster", Id = 2},
+                new Reader(){Name = "Euler", Id = 3},
+                new Reader(){Name = "Cauchy", Id = 4}
             };
 
             var readersVm = new ReadersViewModel() { Readers = readers };
