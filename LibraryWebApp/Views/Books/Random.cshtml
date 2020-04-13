@@ -4,4 +4,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1> @Model.Book.Title </h1>
+@{
+    var className = Model.Readers.Count > 2 ? "Popular" : null;
+}
+
+<h1 class="@className"> @Model.Book.Title </h1>
+
+@if (Model.Readers.Count == 0)
+{
+    <p>No one has read this book!</p>
+}
+else
+{
+    <ul>
+        @foreach (var reader in Model.Readers)
+        {
+            <li> @reader.Name </li>
+        }
+    </ul>
+}
