@@ -33,5 +33,17 @@ namespace LibraryWebApp.Controllers
         {
             return Content("Author: " + "Wallace, David Foster");
         }
+
+        [HttpGet("books/authors/{lastName}/{firstName}")]
+        public IActionResult Authors(string lastName, string firstName)
+        {
+            return Content("Author: " + lastName + ", " + firstName);
+        }
+
+        [HttpGet("books/released/{year:regex(\\d{{4}})}/{month:regex(\\d{{2}})}")]
+        public IActionResult Published(int year, int month)
+        {
+            return Content(String.Format("{0}/{1}", year, month));
+        }
     }
 }
