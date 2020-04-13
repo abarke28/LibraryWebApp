@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using LibraryWebApp.Models;
+using LibraryWebApp.ViewModels;
 
 namespace LibraryWebApp.Controllers
 {
@@ -20,6 +21,7 @@ namespace LibraryWebApp.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Home Page Reached at " + DateTime.Now);
             return View();
         }
 

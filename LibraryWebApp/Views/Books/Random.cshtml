@@ -1,7 +1,7 @@
-﻿@model LibraryWebApp.Models.Book
+﻿@model LibraryWebApp.ViewModels.RandomBookViewModel
 @{
     ViewData["Title"] = "Random";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1> @Model.Title </h1>
+<h1> @Model.Book.Title </h1>

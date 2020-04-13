@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LibraryWebApp.Models;
+using LibraryWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryWebApp.Controllers
@@ -19,9 +20,19 @@ namespace LibraryWebApp.Controllers
 
         public IActionResult Random()
         {
-            Book book = new Book { Title = "Infinite Jest", Author = "Wallace, David Foster" };
+            var book = new Book() { Title = "Infinite Jest", Author = "Wallace, David Foster" };
 
-            return View(book);
+            var vm = new RandomBookViewModel()
+            {
+                Book = book,
+                Readers = new List<Reader>()
+                {
+                    new Reader() {Name = "Alex Barker", Id=1},
+                    new Reader() {Name = "Nicole Foster", Id=2}
+                }
+            };
+
+            return View(vm);
         }
 
         public IActionResult Edit(int id)
