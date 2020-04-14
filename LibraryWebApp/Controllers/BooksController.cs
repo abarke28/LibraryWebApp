@@ -10,12 +10,19 @@ namespace LibraryWebApp.Controllers
 {
     public class BooksController : Controller
     {
-        public IActionResult Index(int? pageIndex, string sortBy)
+        [HttpGet("books")]
+        public IActionResult Index()
         {
-            if (!pageIndex.HasValue) pageIndex = 1;
-            if (string.IsNullOrEmpty(sortBy)) sortBy = "Name";
+            // Summary
+            //
+            // Display all books
 
-            return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+            var vm = new BooksViewModel
+            {
+                Books = DatabaseHelper.GetBooks().ToList()
+            };
+
+            return View(vm);
         }
 
         public IActionResult Random()

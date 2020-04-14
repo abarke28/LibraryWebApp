@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LibraryWebApp.Models;
+using LibraryWebApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LibraryWebApp.Controllers
@@ -11,7 +12,16 @@ namespace LibraryWebApp.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            // Summary
+            //
+            // Display all readers
+
+            var vm = new ReadersViewModel()
+            {
+                Readers = DatabaseHelper.GetReaders().ToList()
+            };
+
+            return View(vm);
         }
 
         public IActionResult Detail(int id)
