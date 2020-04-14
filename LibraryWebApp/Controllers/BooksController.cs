@@ -20,7 +20,7 @@ namespace LibraryWebApp.Controllers
 
         public IActionResult Random()
         {
-            var book = new Book() { Title = "Infinite Jest", Author = "Wallace, David Foster" };
+            var book = new Book() { Title = "Infinite Jest", AuthorLastName = "Wallace", AuthorFirstName="David Foster" };
 
             var vm = new RandomBookViewModel()
             {
@@ -38,7 +38,7 @@ namespace LibraryWebApp.Controllers
         [HttpGet("books/detail/{id}")]
         public IActionResult Detail(int id)
         {
-            var book = new Book() { Author = "x", Title = "y", Id = id };
+            var book = new Book() { AuthorLastName = "x", Title = "y", Id = id };
 
             return View(book);
         }

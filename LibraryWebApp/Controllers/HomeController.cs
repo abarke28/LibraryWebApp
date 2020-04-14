@@ -29,8 +29,8 @@ namespace LibraryWebApp.Controllers
         {
             var books = new List<Book>()
             {
-                new Book(){Title = "Infinite Jest", Author = "Wallace, David Foster", Id = 1},
-                new Book(){Title = "Godel, Escher, Bach", Author = "Hofstader, Douglas", Id = 2}
+                new Book(){Title = "Infinite Jest", AuthorLastName = "Wallace", AuthorFirstName = "David Foster", Id = 1},
+                new Book(){Title = "Godel, Escher, Bach", AuthorLastName = "Hofstader", AuthorFirstName = "Douglas", Id = 2}
             };
 
             var booksVm = new BooksViewModel() { Books = books };
