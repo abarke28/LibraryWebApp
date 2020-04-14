@@ -45,7 +45,7 @@ namespace LibraryWebApp.Controllers
         [HttpGet("books/detail/{id}")]
         public IActionResult Detail(int id)
         {
-            var book = new Book() { AuthorLastName = "x", Title = "y", Id = id };
+            var book = DatabaseHelper.GetBooks(b => b.Id == id).First();
 
             return View(book);
         }

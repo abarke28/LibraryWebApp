@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace LibraryWebApp.Models
@@ -30,7 +31,7 @@ namespace LibraryWebApp.Models
             // Get all Readers
 
             using var dbContext = new LibraryContext();
-            return dbContext.Readers.ToList();
+            return dbContext.Readers.Include(r => r.MembershipType).ToList();
         }
         public static IEnumerable<Reader> GetReaders(Predicate<Reader> predicate)
         {
@@ -40,7 +41,7 @@ namespace LibraryWebApp.Models
 
             using var dbContext = new LibraryContext();
 
-            return dbContext.Readers.Where(new Func<Reader, bool>(predicate)).ToList();
+            return dbContext.Readers.Include(r => r.MembershipType).Where(new Func<Reader, bool>(predicate)).ToList();
         }
 
         public static void AddBook(Book book)

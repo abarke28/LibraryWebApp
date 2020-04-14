@@ -26,7 +26,7 @@ namespace LibraryWebApp.Controllers
 
         public IActionResult Detail(int id)
         {
-            var reader = new Reader() { Name = "Alex Barker", Id = id };
+            var reader = DatabaseHelper.GetReaders(r => r.Id == id).First();
             return View(reader);
         }
     }
