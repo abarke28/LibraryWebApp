@@ -11,5 +11,6 @@ namespace LibraryWebApp.Models
         public int DurationInMonths { get; set; }
         public int DiscountRate { get; set; }
         public int MembershipTypeId { get; set; }
+        public string MembershipTypeName { get; set; }
     }
 }

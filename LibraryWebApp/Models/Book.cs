@@ -15,6 +15,8 @@ namespace LibraryWebApp.Models
         public string AuthorFirstName { get; set; }
         public int PublishedYear { get; set; }
         public int PublishedMonth { get; set; }
+        public Genre Genre { get; set; }
+        public int? GenreId { get; set; }
 
         public virtual ICollection<Reader> Readers { get; set; }
 

@@ -28,7 +28,7 @@ namespace LibraryWebApp.Models
         {
             // Summary
             //
-            // Get all Readers
+            // Get all Readers. Also fetch membershipTypes with Eager Loading
 
             using var dbContext = new LibraryContext();
             return dbContext.Readers.Include(r => r.MembershipType).ToList();
@@ -37,7 +37,7 @@ namespace LibraryWebApp.Models
         {
             // Summary
             //
-            // Gets all readers as filtered by supplied predicate
+            // Gets all readers as filtered by supplied predicate. Also fetch membershipTypes with Eager Loading
 
             using var dbContext = new LibraryContext();
 
