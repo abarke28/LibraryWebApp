@@ -15,12 +15,14 @@ else
     <table>
         <tr>
             <th>Reader</th>
+            <th>Membership</th>
             <th>Discount</th>
         </tr>
         @foreach (var reader in Model.Readers)
         {
             <tr>
                 <th> <a asp-controller="Readers" asp-action="Detail" asp-route-id="@reader.Id"> @reader.Name </a> </th>
+                <th>@reader.MembershipType.MembershipTypeName</th>
                 <th>@reader.MembershipType.DiscountRate %</th>
             </tr>
         }

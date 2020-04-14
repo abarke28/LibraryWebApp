@@ -16,12 +16,14 @@ else
         <tr>
             <th>Title</th>
             <th>Author</th>
+            <th>Genre</th>
         </tr>
         @foreach (var book in Model.Books)
         {
             <tr>
                 <th> <a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id"> @book.Title </a> </th>
-                <th>@book.AuthorLastName</th>
+                <th>@book.AuthorLastName, @book.AuthorFirstName</th>
+                <th>@book.Genre.GenreTypeName</th>
             </tr>
         }
     </table>

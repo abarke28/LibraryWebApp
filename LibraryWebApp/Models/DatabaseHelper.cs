@@ -64,7 +64,7 @@ namespace LibraryWebApp.Models
             // Get all books
 
             using var dbContext = new LibraryContext();
-            return dbContext.Books.ToList();
+            return dbContext.Books.Include(b => b.Genre).ToList();
         }
         public static IEnumerable<Book> GetBooks(Predicate<Book> predicate)
         {
@@ -74,7 +74,7 @@ namespace LibraryWebApp.Models
 
             using var dbContext = new LibraryContext();
 
-            return dbContext.Books.Where(new Func<Book, bool>(predicate)).ToList();
+            return dbContext.Books.Include(b => b.Genre).Where(new Func<Book, bool>(predicate)).ToList();
         }
     }
 }
