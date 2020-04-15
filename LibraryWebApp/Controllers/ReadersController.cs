@@ -39,20 +39,7 @@ namespace LibraryWebApp.Controllers
             var membershipTypes = DatabaseHelper.GetMembershipTypes();
             var newReaderVm = new ReaderFormViewModel { MembershipTypes = membershipTypes, Reader = new Reader() };
 
-            return View("ReaderForm" ,newReaderVm);
-        }
-
-        [HttpPost]
-        public IActionResult Save(Reader reader)
-        {
-            // Summary
-            //
-            // Check if Reader exists. If not -add, else - update
-
-            if (reader.Id == 0) DatabaseHelper.AddReader(reader);
-            else DatabaseHelper.UpdateReader(reader);
-
-            return RedirectToAction("Index", "Readers");
+            return View("ReaderForm", newReaderVm);
         }
 
         public IActionResult Edit(int id)
@@ -68,6 +55,19 @@ namespace LibraryWebApp.Controllers
             };
 
             return View("ReaderForm", vm);
+        }
+
+        [HttpPost]
+        public IActionResult Save(Reader reader)
+        {
+            // Summary
+            //
+            // Check if Reader exists. If not -add, else - update
+
+            if (reader.Id == 0) DatabaseHelper.AddReader(reader);
+            else DatabaseHelper.UpdateReader(reader);
+
+            return RedirectToAction("Index", "Readers");
         }
     }
 }

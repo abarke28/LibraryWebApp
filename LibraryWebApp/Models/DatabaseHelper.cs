@@ -90,6 +90,7 @@ namespace LibraryWebApp.Models
             dbBook.PublishedMonth = book.PublishedMonth;
             dbBook.Synopsis = book.Synopsis;
             dbBook.Title = book.Title;
+            dbBook.NumInStock = book.NumInStock;
 
             dbContext.SaveChanges();
         }
@@ -119,8 +120,17 @@ namespace LibraryWebApp.Models
             //
             // Get all MembershipTypes
 
-            var dbContext = new LibraryContext();
+            using var dbContext = new LibraryContext();
             return dbContext.MembershipTypes.ToList();
+        }
+        public static IEnumerable<Genre> GetGenres()
+        {
+            // Summary
+            //
+            // Return list of all genres
+
+            using var dbContext = new LibraryContext();
+            return dbContext.Genres.ToList();
         }
     }
 }

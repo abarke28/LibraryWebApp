@@ -11,6 +11,7 @@ namespace LibraryWebApp.Models
         public DbSet<Book> Books { get; set; }
         public DbSet<Reader> Readers { get; set; }
         public DbSet<MembershipType> MembershipTypes { get; set; }
+        public DbSet<Genre> Genres { get; set; }
 
         public LibraryContext() : base(DatabaseHelper.CONNECTION_STRING)
         {

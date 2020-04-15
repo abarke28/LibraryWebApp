@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace LibraryWebApp.ViewModels
 {
-    public class RandomBookViewModel
+    public class BookFormViewModel
     {
         public Book Book { get; set; }
-        public List<Reader> Readers { get; set; }
+        public IEnumerable<Genre> Genres { get; set; }
     }
 }

@@ -25,29 +25,42 @@ namespace LibraryWebApp.Controllers
             return View(vm);
         }
 
-        public IActionResult Random()
-        {
-            var book = new Book() { Title = "Infinite Jest", AuthorLastName = "Wallace", AuthorFirstName="David Foster" };
-
-            var vm = new RandomBookViewModel()
-            {
-                Book = book,
-                Readers = new List<Reader>()
-                {
-                    new Reader() {Name = "Alex Barker", Id=1},
-                    new Reader() {Name = "Nicole Foster", Id=2}
-                }
-            };
-
-            return View(vm);
-        }
-
         [HttpGet("books/detail/{id}")]
         public IActionResult Detail(int id)
         {
             var book = DatabaseHelper.GetBooks(b => b.Id == id).First();
 
             return View(book);
+        }
+
+        public IActionResult New()
+        {
+            // Summary
+            //
+            // Add new Book
+
+            var genres = DatabaseHelper.GetGenres();
+            var vm = new BookFormViewModel { Genres = genres, Book = new Book() };
+            
+            return View("BookForm", vm);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            // Summary
+            //
+            // Edit supplied book
+
+            return null;
+        }
+
+        public IActionResult Save(Book book)
+        {
+            // Summary
+            //
+            // If new - save, else - update
+
+            return null;
         }
 
         [HttpGet("books/authors/{lastName}/{firstName}")]
