@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>New Reader</h2>
+<h2>@(Model.Reader.Id == 0 ? "New Reader" : "Edit Reader")</h2>
 
 @using (Html.BeginForm("Save", "Readers"))
 {

@@ -4,5 +4,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>BookForm</h1>
+<h2> @(Model.Book.Id == 0 ? "New Book" : "Edit Book")</h2>
+
+@using (Html.BeginForm("Save", "Books"))
+{
+    <div class="form-group">
+        @Html.LabelFor(b => b.Book.Title)
+        @Html.TextBoxFor(b => b.Book.Title, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(b => b.Book.AuthorLastName)
+        @Html.TextBoxFor(b => b.Book.AuthorLastName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(b => b.Book.AuthorFirstName)
+        @Html.TextBoxFor(b => b.Book.AuthorFirstName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(b => b.Book.Synopsis)
+        @Html.TextBoxFor(b => b.Book.Synopsis, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(b => b.Book.PublishedYear)
+        @Html.TextBoxFor(b => b.Book.PublishedYear, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(b => b.Book.PublishedMonth)
+        @Html.TextBoxFor(b => b.Book.PublishedMonth, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(b => b.Book.GenreId)
+        @Html.DropDownListFor(b => b.Book.GenreId,
+            new SelectList(Model.Genres, "GenreId", "GenreTypeName"),
+            "Select Genre Type...", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(b => b.Book.NumInStock)
+        @Html.TextBoxFor(b => b.Book.NumInStock, new { @class = "form-control" })
+    </div>
+
+    @Html.HiddenFor(b => b.Book.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+    <hr />
+}
 

@@ -6,6 +6,9 @@
 
 <h1>Books</h1>
 
+<a asp-controller="Books" asp-action="New" class="btn btn-primary">New</a>
+<hr />
+
 @if (Model.Books.Count == 0)
 {
     <p>No books yet!</p>
@@ -22,12 +25,11 @@ else
         @foreach (var book in Model.Books)
         {
             <tr>
-                <th> <a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id"> @book.Title </a> </th>
+                <th> <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id"> @book.Title </a> </th>
                 <th>@book.AuthorLastName, @book.AuthorFirstName</th>
                 <th>@book.Genre.GenreTypeName</th>
                 <th>@book.PublishedYear</th>
             </tr>
         }
     </table>
-
 }
