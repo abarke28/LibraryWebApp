@@ -22,7 +22,7 @@ namespace LibraryWebApp.Models
             using var dbContext = new LibraryContext();
 
             dbContext.Readers.Add(reader);
-            dbContext.SaveChangesAsync();
+            dbContext.SaveChanges();
         }
         public static IEnumerable<Reader> GetReaders()
         {
