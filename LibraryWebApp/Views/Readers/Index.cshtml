@@ -21,7 +21,7 @@ else
         @foreach (var reader in Model.Readers)
         {
             <tr>
-                <th> <a asp-controller="Readers" asp-action="Detail" asp-route-id="@reader.Id"> @reader.Name </a> </th>
+                <th> <a asp-controller="Readers" asp-action="Edit" asp-route-id="@reader.Id"> @reader.Name </a> </th>
                 <th>@reader.MembershipType.MembershipTypeName</th>
                 <th>@reader.MembershipType.DiscountRate %</th>
             </tr>

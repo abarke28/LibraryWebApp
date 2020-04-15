@@ -37,16 +37,37 @@ namespace LibraryWebApp.Controllers
             // Add new User
 
             var membershipTypes = DatabaseHelper.GetMembershipTypes();
-            var newReaderVm = new NewReaderViewModel { MembershipTypes = membershipTypes, Reader = new Reader() };
+            var newReaderVm = new ReaderFormViewModel { MembershipTypes = membershipTypes, Reader = new Reader() };
 
-            return View(newReaderVm);
+            return View("ReaderForm" ,newReaderVm);
         }
 
         [HttpPost]
-        public IActionResult Create(Reader reader)
+        public IActionResult Save(Reader reader)
         {
-            DatabaseHelper.AddReader(reader);
+            // Summary
+            //
+            // Check if Reader exists. If not -add, else - update
+
+            if (reader.Id == 0) DatabaseHelper.AddReader(reader);
+            else DatabaseHelper.UpdateReader(reader);
+
             return RedirectToAction("Index", "Readers");
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var reader = DatabaseHelper.GetReaders(r => r.Id == id).SingleOrDefault();
+
+            if (reader == null) return NotFound();
+
+            var vm = new ReaderFormViewModel()
+            {
+                Reader = reader,
+                MembershipTypes = DatabaseHelper.GetMembershipTypes()
+            };
+
+            return View("ReaderForm", vm);
         }
     }
 }

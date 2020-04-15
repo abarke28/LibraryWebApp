@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LibraryWebApp.ViewModels
 {
-    public class NewReaderViewModel
+    public class ReaderFormViewModel
     {
         public IEnumerable<MembershipType> MembershipTypes { get; set; }
         public Reader Reader { get; set; }

@@ -24,6 +24,22 @@ namespace LibraryWebApp.Models
             dbContext.Readers.Add(reader);
             dbContext.SaveChanges();
         }
+        public static void UpdateReader(Reader reader)
+        {
+            // Summary
+            //
+            // Update supplied reader
+
+            using var dbContext = new LibraryContext();
+            var dbReader = dbContext.Readers.First(r => r.Id == reader.Id);
+
+            dbReader.IsSubscribedToNewsletter = reader.IsSubscribedToNewsletter;
+            dbReader.MembershipType = reader.MembershipType;
+            dbReader.MembershipTypeId = reader.MembershipTypeId;
+            dbReader.Name = reader.Name;
+
+            dbContext.SaveChanges();
+        }
         public static IEnumerable<Reader> GetReaders()
         {
             // Summary
@@ -55,6 +71,26 @@ namespace LibraryWebApp.Models
 
             using var dbContext = new LibraryContext();
             dbContext.Books.Add(book);
+            dbContext.SaveChanges();
+        }
+        public static void UpdateBook(Book book)
+        {
+            // Summary
+            //
+            // Update supplied book
+
+            using var dbContext = new LibraryContext();
+            var dbBook = dbContext.Books.First(b => b.Id == book.Id);
+
+            dbBook.AuthorFirstName = book.AuthorFirstName;
+            dbBook.AuthorLastName = book.AuthorLastName;
+            dbBook.Genre = book.Genre;
+            dbBook.GenreId = book.GenreId;
+            dbBook.PublishedYear = book.PublishedYear;
+            dbBook.PublishedMonth = book.PublishedMonth;
+            dbBook.Synopsis = book.Synopsis;
+            dbBook.Title = book.Title;
+
             dbContext.SaveChanges();
         }
         public static IEnumerable<Book> GetBooks()

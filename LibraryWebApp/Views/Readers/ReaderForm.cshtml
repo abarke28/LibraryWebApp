@@ -1,0 +1,29 @@
+﻿@model LibraryWebApp.ViewModels.ReaderFormViewModel
+@{
+    ViewData["Title"] = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Reader</h2>
+
+@using (Html.BeginForm("Save", "Readers"))
+{
+    <div class="form-group">
+        @Html.LabelFor(r => r.Reader.Name)
+        @Html.TextBoxFor(r => r.Reader.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(r => r.Reader.MembershipTypeId)
+        @Html.DropDownListFor(r => r.Reader.MembershipTypeId,
+            new SelectList(Model.MembershipTypes, "MembershipTypeId", "MembershipTypeName"),
+            "Select Membership Type...", new { @class = "form-control" })
+    </div>
+    <div class="form-check">
+        <label>
+            @Html.CheckBoxFor(r => r.Reader.IsSubscribedToNewsletter) Subscribed to Newsletter?
+        </label>
+    </div>
+
+    @Html.HiddenFor(r => r.Reader.Id)
+    <button type="submit" class="btn btn-primary">Save</button>
+}
