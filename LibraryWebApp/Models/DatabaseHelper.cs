@@ -55,7 +55,7 @@ namespace LibraryWebApp.Models
 
             using var dbContext = new LibraryContext();
             dbContext.Books.Add(book);
-            dbContext.SaveChangesAsync();
+            dbContext.SaveChanges();
         }
         public static IEnumerable<Book> GetBooks()
         {
