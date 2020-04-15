@@ -51,16 +51,30 @@ namespace LibraryWebApp.Controllers
             //
             // Edit supplied book
 
-            return null;
+            var book = DatabaseHelper.GetBooks(b => b.Id == id).FirstOrDefault();
+
+            if (book == null) return NotFound();
+
+            var vm = new BookFormViewModel 
+            { 
+                Book = book, 
+                Genres = DatabaseHelper.GetGenres() 
+            };
+
+            return View("BookForm", vm);
         }
 
+        [HttpPost]
         public IActionResult Save(Book book)
         {
             // Summary
             //
             // If new - save, else - update
 
-            return null;
+            if (book.Id == 0) DatabaseHelper.AddBook(book);
+            else DatabaseHelper.UpdateBook(book);
+
+            return RedirectToAction("Index", "Books");
         }
 
         [HttpGet("books/authors/{lastName}/{firstName}")]

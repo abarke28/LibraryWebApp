@@ -44,6 +44,10 @@ namespace LibraryWebApp.Controllers
 
         public IActionResult Edit(int id)
         {
+            // Summary
+            //
+            // Load form with book specified by supplied id
+
             var reader = DatabaseHelper.GetReaders(r => r.Id == id).SingleOrDefault();
 
             if (reader == null) return NotFound();
