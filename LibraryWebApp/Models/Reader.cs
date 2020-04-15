@@ -13,6 +13,7 @@ namespace LibraryWebApp.Models
         public string Name { get; set; }
         public MembershipType MembershipType { get; set; }
         public int MembershipTypeId { get; set; }
+        public bool IsSubscribedToNewsletter { get; set; }
 
         public virtual ICollection<Book> Books { get; set; }
 

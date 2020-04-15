@@ -23,11 +23,21 @@ namespace LibraryWebApp.Controllers
 
             return View(vm);
         }
-
         public IActionResult Detail(int id)
         {
             var reader = DatabaseHelper.GetReaders(r => r.Id == id).First();
             return View(reader);
+        }
+        public IActionResult New()
+        {
+            // Summary
+            //
+            // Add new User
+
+            var membershipTypes = DatabaseHelper.GetMembershipTypes();
+            var newReaderVm = new NewReaderViewModel { MembershipTypes = membershipTypes, Reader = new Reader() };
+
+            return View(newReaderVm);
         }
     }
 }

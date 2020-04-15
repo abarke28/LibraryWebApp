@@ -76,5 +76,15 @@ namespace LibraryWebApp.Models
 
             return dbContext.Books.Include(b => b.Genre).Where(new Func<Book, bool>(predicate)).ToList();
         }
+
+        public static IEnumerable<MembershipType> GetMembershipTypes()
+        {
+            // Summmary
+            //
+            // Get all MembershipTypes
+
+            var dbContext = new LibraryContext();
+            return dbContext.MembershipTypes.ToList();
+        }
     }
 }
