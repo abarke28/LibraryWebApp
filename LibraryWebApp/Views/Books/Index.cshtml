@@ -17,6 +17,7 @@ else
             <th>Title</th>
             <th>Author</th>
             <th>Genre</th>
+            <th>Published</th>
         </tr>
         @foreach (var book in Model.Books)
         {
@@ -24,6 +25,7 @@ else
                 <th> <a asp-controller="Books" asp-action="Detail" asp-route-id="@book.Id"> @book.Title </a> </th>
                 <th>@book.AuthorLastName, @book.AuthorFirstName</th>
                 <th>@book.Genre.GenreTypeName</th>
+                <th>@book.PublishedYear</th>
             </tr>
         }
     </table>
