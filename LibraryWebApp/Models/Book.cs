@@ -18,6 +18,7 @@ namespace LibraryWebApp.Models
         public string Synopsis { get; set; }
         public Genre Genre { get; set; }
         public int? GenreId { get; set; }
+        public int NumInStock { get; set; }
 
         public virtual ICollection<Reader> Readers { get; set; }
 

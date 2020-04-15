@@ -17,6 +17,7 @@ else
             <th>Reader</th>
             <th>Membership</th>
             <th>Discount</th>
+            <th>On Newsletter?</th>
         </tr>
         @foreach (var reader in Model.Readers)
         {
@@ -24,6 +25,7 @@ else
                 <th> <a asp-controller="Readers" asp-action="Edit" asp-route-id="@reader.Id"> @reader.Name </a> </th>
                 <th>@reader.MembershipType.MembershipTypeName</th>
                 <th>@reader.MembershipType.DiscountRate %</th>
+                <th>@(reader.IsSubscribedToNewsletter == true ? "Yes" : "No")</th>
             </tr>
         }
     </table>
