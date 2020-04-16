@@ -29,7 +29,13 @@
     @Html.HiddenFor(r => r.Reader.Id)
     @Html.AntiForgeryToken()
     <button type="submit" class="btn btn-primary">Save</button>
-    @Html.ActionLink("Cancel", "Index", "Readers", null, new { @class = "btn btn-primary"})
+    @Html.ActionLink("Cancel", "Index", "Readers", null, new { @class = "btn btn-primary" })
     <br />
     <br />
+}
+
+@section Scripts
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }
