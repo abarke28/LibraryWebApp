@@ -10,13 +10,12 @@ namespace LibraryWebApp.Models
     {
         public int Id { get; set; }
 
-        [Required]
-        [Display(Name = "Reader (Full Name)")]
+        [Display(Name = "Reader (Full Name)"), Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
 
         public MembershipType MembershipType { get; set; }
 
-        [Display(Name = "Membership Type")]
+        [Display(Name = "Membership Type"), Required(ErrorMessage = "Membership Type is required")]
         public int MembershipTypeId { get; set; }
 
         [Display(Name = "Subscribed to Newsletter?")]

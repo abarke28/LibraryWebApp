@@ -22,7 +22,7 @@ namespace LibraryWebApp.Models
         [Display(Name = "Publication Year")]
         public int PublishedYear { get; set; }
         
-        [Display(Name = "Publication Month")]
+        [Display(Name = "Publication Month"), Range(1,12)]
         public int PublishedMonth { get; set; }
         
         public string Synopsis { get; set; }

@@ -72,6 +72,17 @@ namespace LibraryWebApp.Controllers
             //
             // Check if Reader exists. If not -add, else - update
 
+            if (!ModelState.IsValid)
+            {
+                var vm = new ReaderFormViewModel
+                {
+                    Reader = reader,
+                    MembershipTypes = DatabaseHelper.GetMembershipTypes()
+                };
+
+                return View("ReaderForm", vm);
+            }
+
             if (reader.Id == 0) DatabaseHelper.AddReader(reader);
             else DatabaseHelper.UpdateReader(reader);
 
