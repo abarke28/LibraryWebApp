@@ -66,7 +66,7 @@ namespace LibraryWebApp.Controllers
             return View("BookForm", vm);
         }
 
-        [HttpPost]
+        [HttpPost, ValidateAntiForgeryToken]
         public IActionResult Save(Book book)
         {
             // Summary
