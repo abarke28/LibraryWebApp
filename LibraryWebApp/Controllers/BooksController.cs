@@ -71,6 +71,17 @@ namespace LibraryWebApp.Controllers
             //
             // If new - save, else - update
 
+            if (!ModelState.IsValid)
+            {
+                var vm = new BookFormViewModel
+                {
+                    Book = book,
+                    Genres = DatabaseHelper.GetGenres()
+                };
+
+                return View("BookForm", vm);
+            }
+
             if (book.Id == 0) DatabaseHelper.AddBook(book);
             else DatabaseHelper.UpdateBook(book);
 
