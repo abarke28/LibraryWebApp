@@ -13,25 +13,28 @@ namespace LibraryWebApp.Models
         [Required]
         public string Title { get; set; }
 
-        [Display(Name = "Author (Last Name)")]
+        [Display(Name = "Author (Last Name)"), Required(ErrorMessage = "Surname required")]
         public string AuthorLastName { get; set; }
 
-        [Display(Name = "Author (First Name)")]
+        [Display(Name = "Author (First Name)"), Required(ErrorMessage = "Name required")]
         public string AuthorFirstName { get; set; }
 
-        [Display(Name = "Publication Year")]
+        [Display(Name = "Publication Year"), Required]
         public int PublishedYear { get; set; }
         
-        [Display(Name = "Publication Month"), Range(1,12)]
+        [Display(Name = "Publication Month"), Range(1,12), Required]
         public int PublishedMonth { get; set; }
         
+        [Required]
         public string Synopsis { get; set; }
         
+        [Required]
         public Genre Genre { get; set; }
         
         [Display(Name = "Genre")]
         public int? GenreId { get; set; }
         
+        [Required, Range(0,20)]
         public int NumInStock { get; set; }
 
         public virtual ICollection<Reader> Readers { get; set; }
