@@ -33,6 +33,7 @@ namespace LibraryWebApp.Controllers
             return View(book);
         }
 
+        [HttpGet("books/new")]
         public IActionResult New()
         {
             // Summary
@@ -45,6 +46,7 @@ namespace LibraryWebApp.Controllers
             return View("BookForm", vm);
         }
 
+        [HttpGet("books/edit/{id}")]
         public IActionResult Edit(int id)
         {
             // Summary

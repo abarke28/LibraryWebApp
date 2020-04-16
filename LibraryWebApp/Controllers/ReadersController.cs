@@ -10,6 +10,7 @@ namespace LibraryWebApp.Controllers
 {
     public class ReadersController : Controller
     {
+        [HttpGet("readers")]
         public IActionResult Index()
         {
             // Summary
@@ -24,12 +25,14 @@ namespace LibraryWebApp.Controllers
             return View(vm);
         }
 
+        [HttpGet("readers/detail/{id}")]
         public IActionResult Detail(int id)
         {
             var reader = DatabaseHelper.GetReaders(r => r.Id == id).First();
             return View(reader);
         }
 
+        [HttpGet("readers/new")]
         public IActionResult New()
         {
             // Summary
@@ -42,6 +45,7 @@ namespace LibraryWebApp.Controllers
             return View("ReaderForm", newReaderVm);
         }
 
+        [HttpGet("readers/edit/{id}")]
         public IActionResult Edit(int id)
         {
             // Summary
