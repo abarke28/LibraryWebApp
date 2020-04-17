@@ -19,10 +19,6 @@ namespace LibraryWebApp.Controllers.Api
         {
             _context = new LibraryContext();
         }
-        ~ReadersController()
-        {
-            _context.Dispose();
-        }
 
         // GET api/readers
         [HttpGet]
@@ -68,7 +64,7 @@ namespace LibraryWebApp.Controllers.Api
             _context.Readers.Add(reader);
             _context.SaveChanges();
 
-            return Ok(reader);
+            return Ok(_context.Readers.Include(r => r.MembershipType).First(r => r.Name == reader.Name));
         }
 
         // PUT api/readers/{id}
@@ -114,6 +110,11 @@ namespace LibraryWebApp.Controllers.Api
             _context.SaveChanges();
 
             return Ok();
+        }
+
+        ~ReadersController()
+        {
+            _context.Dispose();
         }
     }
 }
