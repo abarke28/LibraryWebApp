@@ -57,7 +57,7 @@ namespace LibraryWebApp.Controllers.Api
 
         // POST api/readers
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult CreateReader(ReaderDto readerDto)
         {
@@ -79,7 +79,7 @@ namespace LibraryWebApp.Controllers.Api
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult UpdateReader(int id, Reader reader)
+        public ActionResult UpdateReader(int id, ReaderDto readerDto)
         {
             // Summary
             //
@@ -91,9 +91,7 @@ namespace LibraryWebApp.Controllers.Api
 
             if (dbReader == null) return BadRequest();
 
-            dbReader.Name = reader.Name;
-            dbReader.IsSubscribedToNewsletter = reader.IsSubscribedToNewsletter;
-            dbReader.MembershipTypeId = reader.MembershipTypeId;
+            _mapper.Map<ReaderDto, Reader>(readerDto, dbReader);
 
             _context.SaveChanges();
 
