@@ -24,7 +24,9 @@ namespace LibraryWebApp.Controllers.Api
             _context.Dispose();
         }
 
-        [HttpGet] // GET api/readers
+        // GET api/readers
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IEnumerable<Reader> GetReaders()
         {
             // Summary
@@ -34,8 +36,11 @@ namespace LibraryWebApp.Controllers.Api
             return _context.Readers.Include(r => r.MembershipType).ToList();
         }
 
-        [HttpGet("{id}")] // GET api/readers/{id}
-        public Reader GetReader(int id)
+        // GET api/readers/{id}
+        [HttpGet("{id}")] 
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Reader> GetReader(int id)
         {
             // Summary
             //
@@ -43,48 +48,59 @@ namespace LibraryWebApp.Controllers.Api
 
             var reader = _context.Readers.Include(r => r.MembershipType).FirstOrDefault(r => r.Id == id);
 
-            if (reader == null) throw new Exception("Not found");
+            if (reader == null) return BadRequest();
 
-            return reader;
+            return Ok(reader);
         }
 
-        [HttpPost] // POST api/readers
-        public Reader CreateReader(Reader reader)
+        // POST api/readers
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult<Reader> CreateReader(Reader reader)
         {
             // Summary
             //
             // Post/create Reader
 
-            if (!ModelState.IsValid) throw new Exception("Bad Request");
+            if (!ModelState.IsValid) return BadRequest();
 
             _context.Readers.Add(reader);
             _context.SaveChanges();
 
-            return reader;
+            return Ok(reader);
         }
 
-        [HttpPut("{id}")] // PUT api/readers/{id}
-        public void UpdateCustomer(int id, Reader reader)
+        // PUT api/readers/{id}
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult UpdateReader(int id, Reader reader)
         {
             // Summary
             //
             // Update supplied customer
 
-            if (!ModelState.IsValid) throw new Exception("Bad Request");
+            if (!ModelState.IsValid) return BadRequest();
 
             var dbReader = _context.Readers.FirstOrDefault(r => r.Id == id);
 
-            if (dbReader == null) throw new Exception("Not Found");
+            if (dbReader == null) return BadRequest();
 
             dbReader.Name = reader.Name;
             dbReader.IsSubscribedToNewsletter = reader.IsSubscribedToNewsletter;
             dbReader.MembershipTypeId = reader.MembershipTypeId;
 
             _context.SaveChanges();
+
+            return Ok();
         }
 
-        [HttpDelete("{id}")] // DELETE api/readers/{id}
-        public void DeleteCustomer(int id)
+        // DELETE api/readers/{id}
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult DeleteReader(int id)
         {
             // Summary
             //
@@ -92,10 +108,12 @@ namespace LibraryWebApp.Controllers.Api
 
             var reader = _context.Readers.FirstOrDefault(r => r.Id == id);
 
-            if (reader == null) throw new Exception("Not Found");
+            if (reader == null) return BadRequest();
 
             _context.Readers.Remove(reader);
             _context.SaveChanges();
+
+            return Ok();
         }
     }
 }
