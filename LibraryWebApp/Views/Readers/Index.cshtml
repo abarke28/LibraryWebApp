@@ -17,25 +17,29 @@
 else
 {
     <table id="readers" class="table">
-        <tr class="thead-light">
-            <th>Reader</th>
-            <th>Membership</th>
-            <th>Discount</th>
-            <th>On Newsletter?</th>
-            <th>Delete</th>
-        </tr>
-        @foreach (var reader in Model.Readers)
-        {
-            <tr>
-                <th> <a asp-controller="Readers" asp-action="Edit" asp-route-id="@reader.Id"> @reader.Name </a> </th>
-                <th>@reader.MembershipType.MembershipTypeName</th>
-                <th>@reader.MembershipType.DiscountRate %</th>
-                <th>@(reader.IsSubscribedToNewsletter == true ? "Yes" : "No")</th>
-                <th>
-                    <button data-reader-id="@reader.Id" class="btn-link js-delete">Delete</button>
-                </th>
+        <thead>
+            <tr class="thead-light">
+                <th>Reader</th>
+                <th>Membership</th>
+                <th>Discount</th>
+                <th>On Newsletter?</th>
+                <th>Delete</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var reader in Model.Readers)
+            {
+                <tr>
+                    <th> <a asp-controller="Readers" asp-action="Edit" asp-route-id="@reader.Id"> @reader.Name </a> </th>
+                    <th>@reader.MembershipType.MembershipTypeName</th>
+                    <th>@reader.MembershipType.DiscountRate %</th>
+                    <th>@(reader.IsSubscribedToNewsletter == true ? "Yes" : "No")</th>
+                    <th>
+                        <button data-reader-id="@reader.Id" class="btn-link js-delete">Delete</button>
+                    </th>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 
@@ -43,6 +47,8 @@ else
 { 
     <script>
         $(document).ready(function () {
+            $("#readers").DataTable();
+
             $("#readers").on("click", ".js-delete", function () {
                 var button = $(this);
                 bootbox.confirm("Are you sure?", function (result) {
