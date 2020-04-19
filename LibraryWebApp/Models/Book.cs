@@ -28,7 +28,6 @@ namespace LibraryWebApp.Models
         [Required]
         public string Synopsis { get; set; }
         
-        [Required]
         public Genre Genre { get; set; }
         
         [Display(Name = "Genre")]

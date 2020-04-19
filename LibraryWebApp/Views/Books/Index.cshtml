@@ -47,7 +47,7 @@ else
         $(document).ready(function () {
             $("#books").DataTable();
                 
-            $("books").on("click", ".js-delete", function () {
+            $("#books").on("click", ".js-delete", function () {
                 var button = $(this);
                 bootbox.confirm("Are you sure?", function (result) {
                     if (result) {
