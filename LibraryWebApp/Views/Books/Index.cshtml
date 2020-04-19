@@ -16,21 +16,52 @@
 }
 else
 {
-    <table class="table">
-        <tr class="thead-light">
-            <th>Title</th>
-            <th>Author</th>
-            <th>Genre</th>
-            <th>Published</th>
-        </tr>
-        @foreach (var book in Model.Books)
-        {
-            <tr>
-                <th> <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id"> @book.Title </a> </th>
-                <th>@book.AuthorLastName, @book.AuthorFirstName</th>
-                <th>@book.Genre.GenreTypeName</th>
-                <th>@book.PublishedYear</th>
+    <table id="books" class="table">
+        <thead>
+            <tr class="thead-light">
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Published</th>
+                <th>Delete</th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var book in Model.Books)
+            {
+                <tr>
+                    <th> <a asp-controller="Books" asp-action="Edit" asp-route-id="@book.Id"> @book.Title </a> </th>
+                    <th>@book.AuthorLastName, @book.AuthorFirstName</th>
+                    <th>@book.Genre.GenreTypeName</th>
+                    <th>@book.PublishedYear</th>
+                    <th><button data-book-id="@book.Id" class="btn-link js-delete">Delete</button></th>
+                </tr>
+            }
+        </tbody>
     </table>
+}
+
+@section Scripts
+{ 
+    <script>
+        $(document).ready(function () {
+            $("#books").DataTable();
+                
+            $("books").on("click", ".js-delete", function () {
+                var button = $(this);
+                bootbox.confirm("Are you sure?", function (result) {
+                    if (result) {
+                        console.log("confirmed");
+                        $.ajax({
+                            url: "/api/books/" + button.attr("data-book-id"),
+                            method: "DELETE",
+                            success: function () {
+                                button.parents("tr").remove();
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 }
