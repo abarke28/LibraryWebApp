@@ -15,6 +15,9 @@ namespace LibraryWebApp.Models.Dtos
 
             CreateMap<Book, BookDto>();
             CreateMap<BookDto, Book>();
+
+            CreateMap<Rental, RentalDto>();
+            CreateMap<RentalDto, Rental>();
         }
     }
 }

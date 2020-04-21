@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using LibraryWebApp.Models;
 using LibraryWebApp.Models.Dtos;
 using Microsoft.AspNetCore.Http;
@@ -14,10 +15,14 @@ namespace LibraryWebApp.Controllers.Api
     public class RentalsController : ControllerBase
     {
         private readonly LibraryContext _context;
+        private readonly MapperConfiguration _mappingConfig;
+        protected readonly IMapper _mapper;
 
-        RentalsController()
+        public RentalsController()
         {
             _context = new LibraryContext();
+            _mappingConfig = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfile>());
+            _mapper = _mappingConfig.CreateMapper();
         }
 
         [HttpPost]
@@ -29,6 +34,8 @@ namespace LibraryWebApp.Controllers.Api
             //
             // Executes rental transaction for supplied Id
 
+            if (!ModelState.IsValid) return BadRequest("Invalid query");
+
             var reader = _context.Readers.FirstOrDefault(r => r.Id == rentalDto.ReaderId);
 
             // Reader not found
@@ -37,7 +44,7 @@ namespace LibraryWebApp.Controllers.Api
             var books = _context.Books.Where(b => rentalDto.BookIds.Contains(b.Id));
 
             // No Books found
-            if (books == null) return BadRequest();
+            if (books.Count() == 0) return BadRequest("No books found");
 
             var unavailable = new List<Book>();
 
@@ -55,22 +62,21 @@ namespace LibraryWebApp.Controllers.Api
                         Book = book,
                         DateRented = DateTime.Today
                     });
+
+                    // Take one from stock of book
+                    book.NumInStock -= 1;
+
                     break;
                 }
                 // Book not in stock, add to unavailable list to return to user
-                else
-                {
-                    unavailable.Add(book);
-                }
+
+                return BadRequest(String.Format("Book with id {0} not available", book.Id.ToString()));
             }
 
-            _context.SaveChanges();
-
-            // No rentals were unavailable
-            if (unavailable.Count == 0) return Ok();
+            //_context.SaveChanges();
 
             // Some rentals were unavailable
-            return Ok(unavailable);
+            return Ok();
         }
     }
 }

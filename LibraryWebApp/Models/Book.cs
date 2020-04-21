@@ -33,7 +33,7 @@ namespace LibraryWebApp.Models
         [Display(Name = "Genre")]
         public int? GenreId { get; set; }
         
-        [Required, Range(0,20)]
+        [Required, Range(1,20)]
         public int NumInStock { get; set; }
 
         public virtual ICollection<Reader> Readers { get; set; }
