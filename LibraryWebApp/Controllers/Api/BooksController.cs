@@ -7,6 +7,7 @@ using LibraryWebApp.Models;
 using LibraryWebApp.Models.Dtos;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data.Entity;
 
 namespace LibraryWebApp.Controllers.Api
 {
@@ -28,13 +29,23 @@ namespace LibraryWebApp.Controllers.Api
         // GET api/books
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<BookDto>> GetBooks()
+        public ActionResult<IEnumerable<BookDto>> GetBooks(string query = null)
         {
             // Summary
             //
             // Return all books
 
-            return Ok(_context.Books.ToList().Select(_mapper.Map<Book, BookDto>));
+            var booksQuery = _context.Books
+                .Include(b => b.Genre);
+
+            if (!String.IsNullOrEmpty(query))
+                booksQuery = booksQuery.Where(b => b.Title.Contains(query));
+
+            var booksDtos = booksQuery
+                .ToList()
+                .Select(_mapper.Map<Book, BookDto>);
+
+            return Ok(booksDtos);
         }
 
         // GET api/books/{id}
