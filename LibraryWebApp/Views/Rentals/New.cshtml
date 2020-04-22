@@ -15,6 +15,9 @@
         <label>Book</label><br />
         <input id="books" type="text" class="typeahead" placeholder="Book..."/>
     </div>
+
+    <ul id="booksList" class="list-group"></ul>
+
     <button class="btn btn-primary">Submit</button>
 </form>
 
@@ -22,7 +25,10 @@
 { 
 <script>
     $(document).ready(function () {
-        var vm = {}
+        var vm = {
+            readerId: '',
+            bookIds: []
+        };
 
         var readers = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -51,7 +57,8 @@
             name: 'readers',
             display: 'name',
             source: readers
-        }).on("typeahead:select", function(e, reader) {
+        }).on("typeahead:select", function (e, reader) {
+            console.log(reader.name);
             vm.readerId = reader.id;
             });
 
@@ -62,8 +69,13 @@
             name: 'books',
             display: 'title',
             source: books
-        }).on("typeahead:select", function (e, book) {
-            vm.bookId = book.id;
+        }).on('typeahead:select', function (e, book) {
+            console.log(book.title);
+
+            $('#booksList').append("<li>" + book.title + "</li>");
+            $('#books').typeahead('val', '');
+
+            vm.bookIds.push(book.id);
         });
     });
 </script>
