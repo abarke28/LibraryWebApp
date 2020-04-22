@@ -6,7 +6,7 @@
 
 <h1>New</h1>
 
-<form>
+<form id="newRental">
     <div class="form-group">
         <label style="font-family:'Segoe UI'">Reader</label>
         <div class="typeahead">
@@ -36,9 +36,9 @@
 { 
 <script>
     $(document).ready(function () {
+
         var vm = {
-            readerId: '',
-            bookIds: []
+            BookIds: []
         };
 
         var readers = new Bloodhound({
@@ -82,11 +82,24 @@
             source: books
         }).on('typeahead:select', function (e, book) {
             console.log(book.title);
-
             $('#booksList').append("<li class='list-group-item'>" + book.title + "</li>");
             $('#books').typeahead('val', '');
+            vm.BookIds.push(book.id);
+        });
 
-            vm.bookIds.push(book.id);
+        $('#newRental').submit(function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/api/rentals",
+                method: "post",
+                data: vm
+            })
+                .done(function () {
+                    console.log('Rental Posted');
+                })
+                .fail(function () {
+                    console.log('Rental Failed');
+                });
         });
     });
 </script>
