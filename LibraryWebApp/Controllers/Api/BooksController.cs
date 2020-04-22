@@ -36,7 +36,8 @@ namespace LibraryWebApp.Controllers.Api
             // Return all books
 
             var booksQuery = _context.Books
-                .Include(b => b.Genre);
+                .Include(b => b.Genre)
+                .Where(b => b.NumInStock > 0);
 
             if (!String.IsNullOrEmpty(query))
                 booksQuery = booksQuery.Where(b => b.Title.Contains(query));
