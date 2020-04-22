@@ -22,6 +22,8 @@
 { 
 <script>
     $(document).ready(function () {
+        var vm = {}
+
         var readers = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
             queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -49,7 +51,9 @@
             name: 'readers',
             display: 'name',
             source: readers
-        });
+        }).on("typeahead:select", function(e, reader) {
+            vm.readerId = reader.id;
+            });
 
         $('#books').typeahead({
             minlength: 0,
@@ -58,6 +62,8 @@
             name: 'books',
             display: 'title',
             source: books
+        }).on("typeahead:select", function (e, book) {
+            vm.bookId = book.id;
         });
     });
 </script>
