@@ -37,9 +37,7 @@
 <script>
     $(document).ready(function () {
 
-        var vm = {
-            BookIds: []
-        };
+        var vm = {bookIds: []};
 
         var readers = new Bloodhound({
             datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
@@ -82,17 +80,22 @@
             source: books
         }).on('typeahead:select', function (e, book) {
             console.log(book.title);
+
             $('#booksList').append("<li class='list-group-item'>" + book.title + "</li>");
+
             $('#books').typeahead('val', '');
-            vm.BookIds.push(book.id);
+
+            vm.bookIds.push(book.id);
         });
 
         $('#newRental').submit(function (e) {
             e.preventDefault();
+
             $.ajax({
                 url: "/api/rentals",
                 method: "post",
-                data: vm
+                data: JSON.stringify(vm),
+                contentType: "application/json"
             })
                 .done(function () {
                     console.log('Rental Posted');
