@@ -29,13 +29,23 @@ namespace LibraryWebApp.Controllers.Api
         // GET api/readers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<IEnumerable<ReaderDto>> GetReaders()
+        public ActionResult<IEnumerable<ReaderDto>> GetReaders(string query = null)
         {
             // Summary
             //
-            // Return all readers
+            // Return all readers, filterable by a query
 
-            return Ok(_context.Readers.ToList().Select(_mapper.Map<Reader,ReaderDto>));
+            var readersQuery = _context.Readers
+                .Include(r => r.MembershipType);
+
+            if (!String.IsNullOrEmpty(query))
+                readersQuery = readersQuery.Where(r => r.Name.Contains(query));
+
+            var readersDtos = readersQuery
+                .ToList()
+                .Select(_mapper.Map<Reader, ReaderDto>);
+
+            return Ok(readersDtos);
         }
 
         // GET api/readers/{id}
