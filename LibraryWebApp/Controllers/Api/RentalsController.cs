@@ -75,7 +75,6 @@ namespace LibraryWebApp.Controllers.Api
 
             //_context.SaveChanges();
 
-            // Some rentals were unavailable
             return Ok();
         }
     }

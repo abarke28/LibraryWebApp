@@ -70,14 +70,14 @@ body {
   line-height: 60px; /* Vertically center the text there */
 }
 
-.field-validation-error {
+.field-validation-error, label.error {
     color: red;
 }
 
-.input-validation-error {
+.input-validation-error, input.error {
     border: 3px solid red;
 }
 
-.form-control.input-validation-error{
+.form-control.input-validation-error, input.error{
     border: 3px solid red;
 }

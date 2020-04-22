@@ -10,7 +10,7 @@
     <div class="form-group">
         <label style="font-family:'Segoe UI'">Reader</label>
         <div class="typeahead">
-            <input id="readers" type="text" class="typeahead" style="border-radius: 3px" placeholder=" Reader..." />
+            <input id="readers" required type="text" class="typeahead" style="border-radius: 3px" placeholder=" Reader..." />
         </div>
     </div>
     <div class="form-group" id="typeahead">
@@ -33,77 +33,79 @@
 </form>
 
 @section Scripts
-{ 
-<script>
-    $(document).ready(function () {
+{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script>
+        $(document).ready(function () {
 
-        var vm = {bookIds: []};
+            var vm = { bookIds: [] };
 
-        var readers = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            prefetch: '/api/readers',
-            remote: {
-                url: '/api/readers?query=%QUERY',
-                wildcard: '%QUERY'
-            }
-        });
-
-        var books = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            prefetch: '/api/books',
-            remote: {
-                url: '/api/books?query=%QUERY',
-                wildcard: '%QUERY'
-            }
-        });
-
-        $('#readers').typeahead({
-            minlength: 0,
-            highlight: true
-        }, {
-            name: 'readers',
-            display: 'name',
-            source: readers
-        }).on("typeahead:select", function (e, reader) {
-            console.log(reader.name);
-            vm.readerId = reader.id;
+            var readers = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                prefetch: '/api/readers',
+                remote: {
+                    url: '/api/readers?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
             });
 
-        $('#books').typeahead({
-            minlength: 0,
-            highlight: true
-        }, {
-            name: 'books',
-            display: 'title',
-            source: books
-        }).on('typeahead:select', function (e, book) {
-            console.log(book.title);
+            var books = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.obj.whitespace('title'),
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                prefetch: '/api/books',
+                remote: {
+                    url: '/api/books?query=%QUERY',
+                    wildcard: '%QUERY'
+                }
+            });
 
-            $('#booksList').append("<li class='list-group-item'>" + book.title + "</li>");
+            $('#readers').typeahead({
+                minlength: 0,
+                highlight: true
+            }, {
+                name: 'readers',
+                display: 'name',
+                source: readers
+            }).on("typeahead:select", function (e, reader) {
+                console.log(reader.name);
+                vm.readerId = reader.id;
+            });
 
-            $('#books').typeahead('val', '');
+            $('#books').typeahead({
+                minlength: 0,
+                highlight: true
+            }, {
+                name: 'books',
+                display: 'title',
+                source: books
+            }).on('typeahead:select', function (e, book) {
+                console.log(book.title);
 
-            vm.bookIds.push(book.id);
-        });
+                $('#booksList').append("<li class='list-group-item'>" + book.title + "</li>");
 
-        $('#newRental').submit(function (e) {
-            e.preventDefault();
+                $('#books').typeahead('val', '');
 
-            $.ajax({
-                url: "/api/rentals",
-                method: "post",
-                data: JSON.stringify(vm),
-                contentType: "application/json"
-            })
-                .done(function () {
-                    console.log('Rental Posted');
+                vm.bookIds.push(book.id);
+            });
+
+            $('#newRental').submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/api/rentals",
+                    method: "post",
+                    data: JSON.stringify(vm),
+                    contentType: "application/json"
                 })
-                .fail(function () {
-                    console.log('Rental Failed');
-                });
+                    .done(function () {
+                        toastr.success("Rental Succesfully Posted");
+                    })
+                    .fail(function () {
+                        toastr.error("Rental Failed");
+                    });
+            });
         });
-    });
-</script>
+    </script>
 }
